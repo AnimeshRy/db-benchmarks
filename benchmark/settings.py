@@ -151,3 +151,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROWS_LIST = (1000,)
+DB_ENGINES = ['postgresql', 'mysql', 'mariadb', 'sqlite']
