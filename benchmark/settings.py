@@ -71,7 +71,7 @@ WSGI_APPLICATION = 'benchmark.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-DB_ENGINE = os.getenv('DB_ENGINE', 'sqlite3')
+DB_ENGINE = os.getenv('DB_ENGINE', 'sqlite')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -87,6 +87,17 @@ if DB_ENGINE == 'postgresql':
             'HOST': 'db',  # Not used with sqlite3.
             'PASSWORD': os.getenv('POSTGRES_PASSWORD'),  # Set to empty string for localhost. Not used with sqlite3.
             'PORT': '5432',  # Set to empty string for default. Not used with sqlite3.
+        },
+    }
+elif DB_ENGINE == 'cockroachdb':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django_cockroachdb',
+            'NAME': os.getenv('COCKROACH_DATABASE'),  # Or path to database file if using sqlite3.
+            'USER': 'root',  # Not used with sqlite3.
+            'HOST': 'db',  # Not used with sqlite3.
+            'PASSWORD': '',  # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '26257',  # Set to empty string for default. Not used with sqlite3.
         },
     }
 elif DB_ENGINE == 'mysql':
@@ -153,4 +164,4 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 ROWS_LIST = (1000,)
-DB_ENGINES = ['postgresql', 'mysql', 'mariadb', 'sqlite']
+DB_ENGINES = ['postgresql', 'mysql', 'mariadb', 'sqlite', 'cockroachdb']
