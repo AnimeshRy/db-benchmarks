@@ -9,7 +9,7 @@ Usage:s]
 USAGE
     exit 1
 }
-DATABASES="postgresql mysql mariadb sqlite"
+DATABASES="postgresql mysql mariadb sqlite cockroachdb"
 BUILD=0
 while [[ $# -gt 0 ]]; do
   key="$1"
@@ -34,13 +34,13 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-#for DATABASE in $DATABASES
-#  do
-#    CONF="docker/$DATABASE/docker-compose.yml"
-#    echo "Testing $DATABASE"
-#    docker-compose -p ddbench -f $CONF up django
-#    docker-compose -p ddbench -f $CONF down
-#  done
+for DATABASE in $DATABASES
+  do
+    CONF="docker/$DATABASE/docker-compose.yml"
+    echo "Testing $DATABASE"
+    docker-compose -p ddbench -f $CONF up django
+    docker-compose -p ddbench -f $CONF down
+  done
 
 CONF="docker/report/docker-compose.yml"
 echo "Creating graph"
